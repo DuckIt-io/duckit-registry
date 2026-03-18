@@ -1,0 +1,27 @@
+{
+  "name": "@duckit/registry",
+  "version": "0.0.2",
+  "description": "DuckitIO component registry",
+  "type": "module",
+  "main": "registry.json",
+  "files": [
+    "registry.json"
+  ],
+  "keywords": [
+    "duckit",
+    "registry",
+    "components",
+    "react",
+    "ui"
+  ],
+  "author": "DuckitIO",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DuckIt-io/DuckitIo.git",
+    "directory": "registry"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
