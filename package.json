@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "@types/chalk": "^0.4.31",
+    "@types/node": "^25.5.0"
+  },
+  "dependencies": {
+    "commander": "^14.0.3",
+    "ora": "^9.3.0"
+  }
+}
