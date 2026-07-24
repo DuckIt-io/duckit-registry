@@ -33,40 +33,11 @@ jobs:
         run: npm -w @duckit/cli run generate-registry
 
       - name: Check registry is up to date
-        run: git diff --exit-code registry/registry.json
-
-  publish:
-    name: Publish
-    needs: quality
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build CLI
-        run: npm run build
-
-      - name: Publish registry
         run: |
-          cd packages/registry
-          npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish CLI
-        run: |
-          cd packages/cli
-          npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          if [ -n "$(git status --porcelain registry/)" ]; then
+            echo "❌ Registry is not up to date. Run 'npm run generate-registry' and commit the changes."
+            git status --porcelain registry/
+            git diff registry/
+            exit 1
+          fi
+          echo "✅ Registry is up to date"
