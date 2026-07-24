@@ -1,6 +1,10 @@
 {
   "name": "textarea",
-  "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
   "devDependencies": [],
   "files": [
     {

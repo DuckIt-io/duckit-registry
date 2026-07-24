@@ -28,13 +28,21 @@
       },
       "alert": {
         "name": "alert",
-        "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+        "dependencies": [
+          "class-variance-authority",
+          "clsx",
+          "tailwind-merge"
+        ],
         "devDependencies": [],
         "files": []
       },
       "badge": {
         "name": "badge",
-        "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+        "dependencies": [
+          "class-variance-authority",
+          "clsx",
+          "tailwind-merge"
+        ],
         "devDependencies": [],
         "files": []
       },
@@ -101,13 +109,21 @@
       },
       "input": {
         "name": "input",
-        "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+        "dependencies": [
+          "class-variance-authority",
+          "clsx",
+          "tailwind-merge"
+        ],
         "devDependencies": [],
         "files": []
       },
       "input-group": {
         "name": "input-group",
-        "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+        "dependencies": [
+          "class-variance-authority",
+          "clsx",
+          "tailwind-merge"
+        ],
         "devDependencies": [],
         "files": []
       },
@@ -160,7 +176,11 @@
       },
       "skeleton": {
         "name": "skeleton",
-        "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+        "dependencies": [
+          "class-variance-authority",
+          "clsx",
+          "tailwind-merge"
+        ],
         "devDependencies": [],
         "files": []
       },
@@ -178,7 +198,11 @@
       },
       "textarea": {
         "name": "textarea",
-        "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+        "dependencies": [
+          "class-variance-authority",
+          "clsx",
+          "tailwind-merge"
+        ],
         "devDependencies": [],
         "files": []
       },
@@ -197,7 +221,9 @@
       },
       "aspect-ratio": {
         "name": "aspect-ratio",
-        "dependencies": ["@radix-ui/react-aspect-ratio"],
+        "dependencies": [
+          "@radix-ui/react-aspect-ratio"
+        ],
         "devDependencies": [],
         "files": []
       }

@@ -1,6 +1,11 @@
 {
   "name": "breadcrumb",
-  "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "clsx", "tailwind-merge"],
+  "dependencies": [
+    "@radix-ui/react-slot",
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
   "devDependencies": [],
   "files": [
     {
