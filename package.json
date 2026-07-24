@@ -18,7 +18,9 @@
     "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,json,md}\"",
     "publish:registry": "npm -w @duckit/registry publish --access public",
-    "version:registry": "npm -w @duckit/registry version patch"
+    "version:registry": "npm -w @duckit/registry version patch",
+    "publish:cli": "npm -w @duckit/cli publish --access public",
+    "version:cli": "npm -w @duckit/cli version patch"
   },
   "devDependencies": {
     "@types/node": "^24.12.0",
