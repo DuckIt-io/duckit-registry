@@ -1,57 +1,38 @@
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
-import { RegistrySchema, RegistryItem } from '@duckit/config'
+import { RegistryItem } from '@duckit/config'
 
-const REGISTRY_URL = process.env.DUCKIT_REGISTRY_URL || 'https://raw.githubusercontent.com/DuckIt-io/DuckitIo/main/registry'
-const REGISTRY_NPM_URL = 'https://unpkg.com/@duckit/registry@latest/registry.json'
-const REGISTRY_JSDELIVR_URL = 'https://cdn.jsdelivr.net/npm/@duckit/registry@latest/registry.json'
+const REGISTRY_URL = process.env.DUCKIT_REGISTRY_URL || 'https://www.duckit.web.id/r'
+const REGISTRY_NPM_URL = 'https://unpkg.com/@duckit/registry@latest/components'
+const REGISTRY_JSDELIVR_URL = 'https://cdn.jsdelivr.net/npm/@duckit/registry@latest/components'
 const REGISTRY_LOCAL_PATH = process.env.DUCKIT_REGISTRY_LOCAL_PATH
 
-interface FlatRegistry {
-  [key: string]: RegistryItem
-}
-
-function flattenRegistry(schema: RegistrySchema): FlatRegistry {
-  const flat: FlatRegistry = {}
-  for (const category of Object.values(schema.categories)) {
-    for (const [name, item] of Object.entries(category)) {
-      flat[name] = item
-    }
-  }
-  return flat
-}
-
-export async function fetchRegistry(): Promise<FlatRegistry> {
+export async function fetchComponent(name: string): Promise<RegistryItem> {
   if (REGISTRY_LOCAL_PATH) {
-    const content = await fs.readFile(REGISTRY_LOCAL_PATH, 'utf-8')
-    const data = JSON.parse(content)
-    if (data.categories) {
-      return flattenRegistry(data as RegistrySchema)
-    }
-    return data as FlatRegistry
+    const localFile = REGISTRY_LOCAL_PATH.endsWith('.json')
+      ? REGISTRY_LOCAL_PATH
+      : `${REGISTRY_LOCAL_PATH}/${name}.json`
+    const content = await fs.readFile(localFile, 'utf-8')
+    return JSON.parse(content) as RegistryItem
   }
 
   const sources = [
-    { url: `${REGISTRY_URL}/registry.json`, label: 'GitHub Raw' },
-    { url: REGISTRY_NPM_URL, label: 'unpkg' },
-    { url: REGISTRY_JSDELIVR_URL, label: 'jsdelivr' },
+    { url: `${REGISTRY_URL}/${name}.json`, label: 'Domain' },
+    { url: `${REGISTRY_NPM_URL}/${name}.json`, label: 'unpkg' },
+    { url: `${REGISTRY_JSDELIVR_URL}/${name}.json`, label: 'jsdelivr' },
   ]
 
   for (const source of sources) {
     try {
       const response = await fetch(source.url)
       if (!response.ok) continue
-      const data: unknown = await response.json()
-      if (data && typeof data === 'object' && 'categories' in data) {
-        return flattenRegistry(data as RegistrySchema)
-      }
-      return data as FlatRegistry
+      return (await response.json()) as RegistryItem
     } catch {
       continue
     }
   }
 
-  throw new Error('Failed to fetch registry from all sources')
+  throw new Error(`Component "${name}" not found in any registry source`)
 }
 
 export function getRegistryPath(aliases: Record<string, string>): string {

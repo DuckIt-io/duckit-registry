@@ -2,13 +2,10 @@ import { promises as fs } from 'node:fs'
 import path from 'node:path'
 import chalk from 'chalk'
 import ora from 'ora'
-import { fetchRegistry, getRegistryPath, resolveProjectRoot } from '../utils/registry.js'
+import { fetchComponent, getRegistryPath, resolveProjectRoot } from '../utils/registry.js'
 import { installDependencies, writeComponentFiles } from '../utils/package.js'
 
-export async function addCommand(
-  component: string,
-  options: { yes: boolean; overwrite: boolean },
-) {
+export async function addCommand(component: string, options: { yes: boolean; overwrite: boolean }) {
   const spinner = ora(`Fetching component: ${component}`).start()
 
   try {
@@ -32,16 +29,7 @@ export async function addCommand(
     }
 
     spinner.text = 'Fetching component metadata...'
-    const registry = await fetchRegistry()
-
-    const componentData = registry[component]
-    if (!componentData) {
-      spinner.fail()
-      console.error(chalk.red(`Error: Component "${component}" not found in registry.`))
-      console.log(chalk.yellow('\nAvailable components:'))
-      Object.keys(registry).forEach((name) => console.log(`  - ${name}`))
-      process.exit(1)
-    }
+    const componentData = await fetchComponent(component)
 
     if (!componentData.files || componentData.files.length === 0) {
       spinner.fail()
@@ -49,10 +37,7 @@ export async function addCommand(
       process.exit(1)
     }
 
-    if (
-      componentData.dependencies.length > 0 ||
-      componentData.devDependencies.length > 0
-    ) {
+    if (componentData.dependencies.length > 0 || componentData.devDependencies.length > 0) {
       spinner.text = 'Installing dependencies...'
       await installDependencies(
         projectRoot,
@@ -68,7 +53,9 @@ export async function addCommand(
     const written = await writeComponentFiles(uiPath, componentData.files, options.overwrite)
 
     if (written.length === 0) {
-      spinner.warn(chalk.yellow(`Component "${component}" files already exist (use --overwrite to replace)`))
+      spinner.warn(
+        chalk.yellow(`Component "${component}" files already exist (use --overwrite to replace)`),
+      )
     } else {
       spinner.succeed(chalk.green(`Successfully added ${component} component!`))
       console.log(chalk.blue(`\nLocation: ${path.join(uiPath, component)}`))
