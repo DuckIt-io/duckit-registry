@@ -9,14 +9,14 @@ Unlike traditional npm packages, Duckit distributes **source code** through a re
 | Package | Description | npm |
 |---------|-------------|-----|
 | `@duckit/registry` | Component registry metadata | [View](https://www.npmjs.com/package/@duckit/registry) |
-| `@duckit/cli` | CLI tool for installation | [View](https://www.npmjs.com/package/@duckit/duckit) |
+| `@duckit/cli` | CLI tool for installation | [View](https://www.npmjs.com/package/@duckit/cli) |
 
 ## Quick Start
 
 ### 1. Init project
 
 ```bash
-npx @duckit/duckit@latest init
+npx @duckit/cli@latest init
 ```
 
 This will:
@@ -28,8 +28,8 @@ This will:
 ### 2. Add components
 
 ```bash
-npx @duckit/duckit@latest add button
-npx @duckit/duckit@latest add dialog input
+npx @duckit/cli@latest add button
+npx @duckit/cli@latest add dialog input
 ```
 
 ## Available Components
@@ -77,11 +77,11 @@ duckit-registry/
 ├── tsconfig.json             # Root TypeScript config
 ├── vitest.config.ts          # Test configuration
 │
+├── registry/                 # @duckit/registry
+│   ├── package.json
+│   └── registry.json         # Component metadata & source code
+│
 ├── packages/
-│   ├── registry/             # @duckit/registry
-│   │   ├── package.json
-│   │   └── registry.json     # Component metadata & source code
-│   │
 │   ├── cli/                  # @duckit/cli
 │   │   ├── src/
 │   │   │   ├── index.ts
@@ -130,6 +130,10 @@ npm test
 
 # Generate registry from component files
 npm run generate-registry
+
+# Bump version and publish registry
+npm run version:registry
+npm run publish:registry
 
 # Format code
 npm run format
