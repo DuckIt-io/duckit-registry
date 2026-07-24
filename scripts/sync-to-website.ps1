@@ -4,7 +4,7 @@ param(
 )
 
 $RegistryDir = Resolve-Path "$PSScriptRoot/../registry"
-$PublicDir = Resolve-Path "$WebsiteDir/public/r"
+$PublicDir = Join-Path (Resolve-Path $WebsiteDir) "public/r"
 
 Write-Host "Syncing registry to website..."
 Write-Host "  Registry: $RegistryDir"
