@@ -4,18 +4,21 @@
   "private": true,
   "description": "Duckit Registry — Modern component registry platform for React ecosystem",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "registry"
   ],
   "scripts": {
     "build": "npm -w @duckit/cli run build",
     "dev": "npm -w @duckit/cli run dev",
-    "lint": "eslint . --ext .ts,.tsx",
+    "lint": "tsc --noEmit && prettier --check \"**/*.{ts,tsx,json,md}\"",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
     "generate-registry": "npm -w @duckit/cli run generate-registry",
     "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,json,md}\""
+    "format:check": "prettier --check \"**/*.{ts,tsx,json,md}\"",
+    "publish:registry": "npm -w @duckit/registry publish --access public",
+    "version:registry": "npm -w @duckit/registry version patch"
   },
   "devDependencies": {
     "@types/node": "^24.12.0",

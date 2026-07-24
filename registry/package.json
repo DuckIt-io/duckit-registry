@@ -1,11 +1,13 @@
 {
   "name": "@duckit/registry",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Duckit component registry — shadcn/ui compatible registry of React UI components",
   "type": "module",
   "main": "registry.json",
   "files": [
-    "registry.json"
+    "registry.json",
+    "index.json",
+    "components"
   ],
   "keywords": [
     "duckit",
