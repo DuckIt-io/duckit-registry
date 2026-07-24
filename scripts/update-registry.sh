@@ -3,34 +3,27 @@
 # Script to update and publish Duckit registry
 set -e
 
-echo "🔄 Updating Duckit Registry..."
+echo "Updating Duckit Registry..."
 
-# Navigate to project root
 cd "$(dirname "$0")/.."
 
-# Generate registry with latest component files
-echo "📦 Generating registry..."
-cd packages/duckit-cli
+echo "Generating registry..."
+cd packages/cli
 npm run generate-registry
 
-# Navigate to registry folder
 cd ../../registry
 
-# Check if there are changes
 if git diff --quiet registry.json; then
-    echo "✅ No changes to registry"
+    echo "No changes to registry"
 else
-    echo "📝 Changes detected in registry.json"
-    
-    # Bump version and publish
-    echo "🚀 Publishing new version..."
+    echo "Changes detected in registry.json"
+    echo "Publishing new version..."
     npm version patch
     npm publish --access public
-    
-    # Commit changes
+
     git add registry.json package.json
-    git commit -m "chore: Update registry [skip ci]"
+    git commit -m "chore: update registry [skip ci]"
     git push origin main
-    
-    echo "✅ Registry updated and published!"
+
+    echo "Registry updated and published!"
 fi
