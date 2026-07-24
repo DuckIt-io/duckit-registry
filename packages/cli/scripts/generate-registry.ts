@@ -30,6 +30,12 @@ interface RegistrySchema {
   categories: Partial<Record<RegistryCategory, Record<string, RegistryItem>>>
 }
 
+async function ensureDir(dir: string) {
+  try {
+    await fs.mkdir(dir, { recursive: true })
+  } catch {}
+}
+
 async function generateRegistry() {
   console.log(`  Project root: ${PROJECT_ROOT}`)
   console.log(`  Registry dir: ${REGISTRY_DIR}`)
@@ -55,7 +61,6 @@ async function generateRegistry() {
     }
   }
 
-  // Read component files
   const files = await fs.readdir(SRC_DIR)
   const componentFiles = files.filter((f) => f.endsWith('.tsx') && !f.endsWith('.stories.tsx'))
 
@@ -101,19 +106,63 @@ async function generateRegistry() {
     }
   }
 
-  const schema: RegistrySchema = {
-    $schema: 'https://duckit.dev/schema.json',
+  // Write full registry.json (backward compat)
+  const fullSchema: RegistrySchema = {
+    $schema: 'https://www.duckit.web.id/r/schema.json',
     version: 1,
     categories,
   }
+  await fs.writeFile(registryPath, JSON.stringify(fullSchema, null, 2), 'utf-8')
 
-  await fs.writeFile(registryPath, JSON.stringify(schema, null, 2), 'utf-8')
+  // Write index.json (lightweight catalog, no file contents)
+  const indexCategories: RegistrySchema['categories'] = {}
+  for (const [catName, cat] of Object.entries(categories)) {
+    if (!cat) continue
+    indexCategories[catName as RegistryCategory] = {}
+    for (const [itemName, item] of Object.entries(cat)) {
+      indexCategories[catName as RegistryCategory]![itemName] = {
+        name: item.name,
+        description: item.description,
+        dependencies: item.dependencies,
+        devDependencies: item.devDependencies,
+        files: [],
+      }
+    }
+  }
+  const indexSchema: RegistrySchema = {
+    $schema: 'https://www.duckit.web.id/r/schema.json',
+    version: 1,
+    categories: indexCategories,
+  }
+  await fs.writeFile(
+    path.join(REGISTRY_DIR, 'index.json'),
+    JSON.stringify(indexSchema, null, 2),
+    'utf-8',
+  )
+
+  // Write per-component files
+  const componentsDir = path.join(REGISTRY_DIR, 'components')
+  await ensureDir(componentsDir)
+  let written = 0
+  for (const [, cat] of Object.entries(categories)) {
+    if (!cat) continue
+    for (const [itemName, item] of Object.entries(cat)) {
+      const componentPath = path.join(componentsDir, `${itemName}.json`)
+      await fs.writeFile(componentPath, JSON.stringify(item, null, 2), 'utf-8')
+      written++
+    }
+  }
 
   const totalItems = Object.values(categories).reduce(
     (sum, cat) => sum + Object.keys(cat || {}).length,
     0,
   )
-  console.log(`\nRegistry generated with ${totalItems} items across ${Object.keys(categories).length} categories`)
+  console.log(
+    `\nRegistry generated: ${totalItems} items across ${Object.keys(categories).length} categories`,
+  )
+  console.log(`  - registry.json (full, backward compat)`)
+  console.log(`  - index.json (lightweight catalog)`)
+  console.log(`  - components/ (${written} individual files)`)
 }
 
 function findInCategories(

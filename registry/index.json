@@ -1,0 +1,206 @@
+{
+  "$schema": "https://www.duckit.web.id/r/schema.json",
+  "version": 1,
+  "categories": {
+    "components": {
+      "button": {
+        "name": "button",
+        "dependencies": [
+          "@radix-ui/react-slot",
+          "class-variance-authority",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "devDependencies": [],
+        "files": []
+      },
+      "alert-dialog": {
+        "name": "alert-dialog",
+        "dependencies": [
+          "@radix-ui/react-alert-dialog",
+          "@radix-ui/react-slot",
+          "class-variance-authority",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "devDependencies": [],
+        "files": []
+      },
+      "alert": {
+        "name": "alert",
+        "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+        "devDependencies": [],
+        "files": []
+      },
+      "badge": {
+        "name": "badge",
+        "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+        "devDependencies": [],
+        "files": []
+      },
+      "breadcrumb": {
+        "name": "breadcrumb",
+        "dependencies": [
+          "@radix-ui/react-slot",
+          "class-variance-authority",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "devDependencies": [],
+        "files": []
+      },
+      "calendar": {
+        "name": "calendar",
+        "dependencies": [
+          "react-day-picker",
+          "date-fns",
+          "class-variance-authority",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "devDependencies": [],
+        "files": []
+      },
+      "collapsible": {
+        "name": "collapsible",
+        "dependencies": [
+          "@radix-ui/react-collapsible",
+          "class-variance-authority",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "devDependencies": [],
+        "files": []
+      },
+      "command": {
+        "name": "command",
+        "dependencies": [
+          "cmdk",
+          "@radix-ui/react-dialog",
+          "@radix-ui/react-slot",
+          "class-variance-authority",
+          "clsx",
+          "tailwind-merge",
+          "lucide-react"
+        ],
+        "devDependencies": [],
+        "files": []
+      },
+      "dialog": {
+        "name": "dialog",
+        "dependencies": [
+          "@radix-ui/react-dialog",
+          "@radix-ui/react-slot",
+          "class-variance-authority",
+          "clsx",
+          "tailwind-merge",
+          "lucide-react"
+        ],
+        "devDependencies": [],
+        "files": []
+      },
+      "input": {
+        "name": "input",
+        "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+        "devDependencies": [],
+        "files": []
+      },
+      "input-group": {
+        "name": "input-group",
+        "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+        "devDependencies": [],
+        "files": []
+      },
+      "navigation-menu": {
+        "name": "navigation-menu",
+        "dependencies": [
+          "@radix-ui/react-navigation-menu",
+          "@radix-ui/react-slot",
+          "class-variance-authority",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "devDependencies": [],
+        "files": []
+      },
+      "scroll-area": {
+        "name": "scroll-area",
+        "dependencies": [
+          "@radix-ui/react-scroll-area",
+          "class-variance-authority",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "devDependencies": [],
+        "files": []
+      },
+      "separator": {
+        "name": "separator",
+        "dependencies": [
+          "@radix-ui/react-separator",
+          "class-variance-authority",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "devDependencies": [],
+        "files": []
+      },
+      "sheet": {
+        "name": "sheet",
+        "dependencies": [
+          "@radix-ui/react-dialog",
+          "@radix-ui/react-slot",
+          "class-variance-authority",
+          "clsx",
+          "tailwind-merge",
+          "lucide-react"
+        ],
+        "devDependencies": [],
+        "files": []
+      },
+      "skeleton": {
+        "name": "skeleton",
+        "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+        "devDependencies": [],
+        "files": []
+      },
+      "tabs": {
+        "name": "tabs",
+        "dependencies": [
+          "@radix-ui/react-tabs",
+          "@radix-ui/react-slot",
+          "class-variance-authority",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "devDependencies": [],
+        "files": []
+      },
+      "textarea": {
+        "name": "textarea",
+        "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+        "devDependencies": [],
+        "files": []
+      },
+      "tooltip": {
+        "name": "tooltip",
+        "dependencies": [
+          "@radix-ui/react-tooltip",
+          "@radix-ui/react-slot",
+          "class-variance-authority",
+          "clsx",
+          "tailwind-merge",
+          "lucide-react"
+        ],
+        "devDependencies": [],
+        "files": []
+      },
+      "aspect-ratio": {
+        "name": "aspect-ratio",
+        "dependencies": ["@radix-ui/react-aspect-ratio"],
+        "devDependencies": [],
+        "files": []
+      }
+    }
+  }
+}
