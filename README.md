@@ -1,69 +1,45 @@
-# DuckitIO - Component Registry & CLI
+# Duckit Registry
 
-DuckitIO adalah kumpulan komponen UI React berbasis Radix UI dan Tailwind CSS, dengan CLI untuk instalasi mudah.
+Modern component registry platform for the React ecosystem. Discover, preview, and install high-quality UI components directly into your projects.
 
-## 📦 Packages
+Unlike traditional npm packages, Duckit distributes **source code** through a registry compatible with the shadcn/ui Registry API, so you fully own and customize every component.
 
-### @duckit/registry
-Registry yang berisi metadata semua komponen DuckitIO.
+## Packages
 
-**npm:** https://www.npmjs.com/package/@duckit/registry
+| Package | Description | npm |
+|---------|-------------|-----|
+| `@duckit/registry` | Component registry metadata | [View](https://www.npmjs.com/package/@duckit/registry) |
+| `@duckit/cli` | CLI tool for installation | [View](https://www.npmjs.com/package/@duckit/duckit) |
 
-### @duckit/duckit (CLI)
-CLI tool untuk menambahkan komponen ke project Anda.
+## Quick Start
 
-**npm:** https://www.npmjs.com/package/@duckit/duckit
-
-## 🚀 Quick Start
-
-### 1. Install Dependencies
+### 1. Init project
 
 ```bash
-npm install @radix-ui/react-slot class-variance-authority clsx tailwind-merge
+npx @duckit/duckit@latest init
 ```
 
-### 2. Setup components.json
+This will:
+- Create `components.json`
+- Add `src/lib/utils.ts` with `cn()` utility
+- Install required dependencies
+- Set up alias configuration for your framework
 
-Buat file `components.json` di root project:
-
-```json
-{
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "new-york",
-  "rsc": false,
-  "tsx": true,
-  "tailwind": {
-    "config": "tailwind.config.js",
-    "css": "src/index.css",
-    "baseColor": "slate",
-    "cssVariables": true
-  },
-  "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
-    "ui": "@/components/ui"
-  }
-}
-```
-
-### 3. Add Components
+### 2. Add components
 
 ```bash
-# Menggunakan npx
 npx @duckit/duckit@latest add button
-
-# Atau tambahkan multiple components
-npx @duckit/duckit@latest add button input dialog
+npx @duckit/duckit@latest add dialog input
 ```
 
-## 📚 Available Components
+## Available Components
 
 | Component | Description |
 |-----------|-------------|
-| `button` | Button dengan berbagai variant |
-| `alert-dialog` | Dialog untuk alert dan konfirmasi |
-| `alert` | Alert banner untuk notifikasi |
-| `badge` | Badge/label kecil |
+| `button` | Button with multiple variants |
+| `alert-dialog` | Alert and confirmation dialog |
+| `alert` | Alert banner for notifications |
+| `badge` | Badge/label component |
 | `breadcrumb` | Navigation breadcrumb |
 | `calendar` | Date picker calendar |
 | `collapsible` | Collapsible content section |
@@ -81,74 +57,115 @@ npx @duckit/duckit@latest add button input dialog
 | `tooltip` | Tooltip on hover |
 | `aspect-ratio` | Maintain aspect ratio |
 
-## 🛠 Development
+## Framework Support
+
+Duckit CLI automatically detects your framework:
+
+- **Next.js** — Configures tsconfig path aliases
+- **Vite** — Creates/updates vite.config.ts with `@` alias
+- **Remix** — Basic setup instructions
+- **Create React App** — Basic setup instructions
+- **Astro** — Basic setup instructions
+
+## Development
 
 ### Project Structure
 
 ```
-DuckitIo/
+duckit-registry/
+├── package.json              # Root workspace config
+├── tsconfig.json             # Root TypeScript config
+├── vitest.config.ts          # Test configuration
+│
 ├── packages/
-│   └── duckit-cli/       # CLI package
-│       ├── src/
-│       │   ├── index.ts
-│       │   └── commands/
-│       │       └── add.ts
-│       ├── scripts/
-│       │   └── generate-registry.ts
-│       └── package.json
-├── registry/
-│   ├── registry.json     # Component registry
-│   └── package.json
+│   ├── registry/             # @duckit/registry
+│   │   ├── package.json
+│   │   └── registry.json     # Component metadata & source code
+│   │
+│   ├── cli/                  # @duckit/cli
+│   │   ├── src/
+│   │   │   ├── index.ts
+│   │   │   ├── commands/
+│   │   │   │   ├── add.ts
+│   │   │   │   └── init.ts
+│   │   │   └── utils/
+│   │   │       ├── framework.ts
+│   │   │       ├── registry.ts
+│   │   │       └── package.ts
+│   │   ├── scripts/
+│   │   │   └── generate-registry.ts
+│   │   └── package.json
+│   │
+│   └── config/               # @duckit/config (shared types)
+│       └── src/
+│           └── index.ts
+│
 ├── src/
-│   └── components/ui/    # Component source files
-└── scripts/
-    └── update-registry.sh
+│   └── components/ui/        # Component source files
+│       ├── button.tsx
+│       ├── input.tsx
+│       └── ...
+│
+├── scripts/
+│   ├── sync.sh              # Sync from DuckitIo
+│   ├── update-and-publish.sh
+│   └── update-registry.sh
+│
+└── .github/
+    └── workflows/
+        └── ci.yml
 ```
 
-### Build CLI
+### Commands
 
 ```bash
-cd packages/duckit-cli
+# Install dependencies
 npm install
+
+# Build CLI
 npm run build
-```
 
-### Generate Registry
+# Run tests
+npm test
 
-```bash
-cd packages/duckit-cli
+# Generate registry from component files
 npm run generate-registry
+
+# Format code
+npm run format
 ```
 
-### Test Locally
+### Sync Components
 
 ```bash
-# Use local registry
-DUCKIT_REGISTRY_LOCAL_PATH=$(pwd)/registry/registry.json \
-  node packages/duckit-cli/dist/index.js add button
+bash scripts/sync.sh
 ```
 
-### Publish
+To specify a custom source path:
 
 ```bash
-# Publish registry
-cd registry
-npm version patch
-npm publish --access public
-
-# Publish CLI
-cd packages/duckit-cli
-npm version patch
-npm publish --access public
+SOURCE_DIR=/path/to/components bash scripts/sync.sh
 ```
 
-## 🔗 Links
+## Registry Schema
 
-- **GitHub:** https://github.com/DuckIt-io/DuckitIo
-- **npm (registry):** https://www.npmjs.com/package/@duckit/registry
-- **npm (CLI):** https://www.npmjs.com/package/@duckit/duckit
+The registry uses a categorized schema:
 
-## 📄 License
+```json
+{
+  "$schema": "https://duckit.dev/schema.json",
+  "version": 1,
+  "categories": {
+    "components": { ... },
+    "animated": { ... },
+    "blocks": { ... },
+    "sections": { ... },
+    "templates": { ... },
+    "effects": { ... }
+  }
+}
+```
+
+## License
 
 MIT
-# DuckitIo-Registry
