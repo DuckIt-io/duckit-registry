@@ -32,6 +32,9 @@ jobs:
       - name: Generate registry
         run: npm -w @duckit/cli run generate-registry
 
+      - name: Format generated registry
+        run: npx prettier --write "registry/**/*.json"
+
       - name: Check registry is up to date
         run: |
           if [ -n "$(git status --porcelain registry/)" ]; then
