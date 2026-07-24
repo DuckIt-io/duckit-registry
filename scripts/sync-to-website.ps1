@@ -17,12 +17,11 @@ New-Item -ItemType Directory -Path $PublicDir -Force | Out-Null
 Copy-Item -Path "$RegistryDir/index.json" -Destination "$PublicDir/index.json" -Force
 Write-Host "    index.json"
 
-# Copy per-component files
+# Copy per-component files (flatten: no components/ subfolder, matches CLI URL pattern)
 if (Test-Path "$RegistryDir/components") {
-  New-Item -ItemType Directory -Path "$PublicDir/components" -Force | Out-Null
   Get-ChildItem -Path "$RegistryDir/components" -Filter "*.json" | ForEach-Object {
-    Copy-Item -Path $_.FullName -Destination "$PublicDir/components/$($_.Name)" -Force
-    Write-Host "    components/$($_.Name)"
+    Copy-Item -Path $_.FullName -Destination "$PublicDir/$($_.Name)" -Force
+    Write-Host "    $($_.Name)"
   }
 }
 
