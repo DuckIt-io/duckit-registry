@@ -1,7 +1,7 @@
 {
   "name": "@duckit/registry",
   "version": "0.0.2",
-  "description": "DuckitIO component registry",
+  "description": "Duckit component registry — shadcn/ui compatible registry of React UI components",
   "type": "module",
   "main": "registry.json",
   "files": [
@@ -12,13 +12,14 @@
     "registry",
     "components",
     "react",
-    "ui"
+    "ui",
+    "shadcn"
   ],
-  "author": "DuckitIO",
+  "author": "Duckit",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DuckIt-io/DuckitIo.git",
+    "url": "git+https://github.com/DuckIt-io/duckit-registry.git",
     "directory": "registry"
   },
   "publishConfig": {
