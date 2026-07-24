@@ -13,12 +13,7 @@ export interface RegistryItem {
 }
 
 export type RegistryCategory =
-  | 'components'
-  | 'animated'
-  | 'blocks'
-  | 'sections'
-  | 'templates'
-  | 'effects'
+  'components' | 'animated' | 'blocks' | 'sections' | 'templates' | 'effects'
 
 export interface RegistrySchema {
   $schema?: string

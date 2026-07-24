@@ -11,9 +11,7 @@ describe('detectFramework', () => {
   })
 
   it('detects Vite with @vitejs/plugin-react', () => {
-    expect(
-      detectFramework({ devDependencies: { '@vitejs/plugin-react': '4.0.0' } }),
-    ).toBe('vite')
+    expect(detectFramework({ devDependencies: { '@vitejs/plugin-react': '4.0.0' } })).toBe('vite')
   })
 
   it('defaults to Vite for unknown', () => {

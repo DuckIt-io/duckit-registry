@@ -17,10 +17,7 @@ program
   .description('CLI tool for adding Duckit components to your project')
   .version(pkg.version)
 
-program
-  .command('init')
-  .description('Initialize Duckit in your project')
-  .action(initCommand)
+program.command('init').description('Initialize Duckit in your project').action(initCommand)
 
 program
   .command('add')

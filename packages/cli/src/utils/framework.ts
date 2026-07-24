@@ -2,8 +2,8 @@ import { Framework } from '@duckit/config'
 
 export function detectFramework(pkg: Record<string, unknown>): Framework {
   const deps = {
-    ...(pkg.dependencies as Record<string, string> || {}),
-    ...(pkg.devDependencies as Record<string, string> || {}),
+    ...((pkg.dependencies as Record<string, string>) || {}),
+    ...((pkg.devDependencies as Record<string, string>) || {}),
   }
 
   if (deps.next) return 'nextjs'
