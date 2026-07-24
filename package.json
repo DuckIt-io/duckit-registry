@@ -1,10 +1,29 @@
 {
-  "devDependencies": {
-    "@types/chalk": "^0.4.31",
-    "@types/node": "^25.5.0"
+  "name": "duckit-registry",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Duckit Registry — Modern component registry platform for React ecosystem",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm -w @duckit/cli run build",
+    "dev": "npm -w @duckit/cli run dev",
+    "lint": "eslint . --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "generate-registry": "npm -w @duckit/cli run generate-registry",
+    "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,json,md}\""
   },
-  "dependencies": {
-    "commander": "^14.0.3",
-    "ora": "^9.3.0"
+  "devDependencies": {
+    "@types/node": "^24.12.0",
+    "prettier": "^3.4.0",
+    "typescript": "~5.9.3",
+    "vitest": "^3.2.7"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
