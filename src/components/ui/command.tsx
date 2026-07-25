@@ -19,7 +19,7 @@ function Command({ className, ...props }: React.ComponentProps<typeof CommandPri
     <CommandPrimitive
       data-slot="command"
       className={cn(
-        'bg-popover text-popover-foreground rounded-xl! corner-squircle p-1 flex size-full flex-col overflow-hidden',
+        'bg-popover text-popover-foreground rounded-xl! corner-squircle-lg p-1 flex size-full flex-col overflow-hidden',
         className,
       )}
       {...props}
@@ -47,7 +47,7 @@ function CommandDialog({
       </DialogHeader>
       <DialogContent
         className={cn(
-          'rounded-xl! corner-squircle top-1/3 translate-y-0 overflow-hidden p-0',
+          'rounded-xl! corner-squircle-lg top-1/3 translate-y-0 overflow-hidden p-0',
           className,
         )}
       >
