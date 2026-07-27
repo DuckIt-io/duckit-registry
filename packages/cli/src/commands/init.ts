@@ -38,44 +38,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 `
 
-const CORNER_UTILITIES = `
-@utility corner-squircle-sm {
-  -webkit-mask-box-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' rx='50' fill='black'/%3E%3C/svg%3E") 49% fill / 16px;
-  mask-border: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' rx='50' fill='black'/%3E%3C/svg%3E") 49% fill / 16px;
-  @media (min-resolution: 2x) {
-    -webkit-mask-box-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' rx='50' fill='black'/%3E%3C/svg%3E") 49% fill / 16px;
-    mask-border: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' rx='50' fill='black'/%3E%3C/svg%3E") 49% fill / 16px;
-  }
-  @media (min-resolution: 3x) {
-    -webkit-mask-box-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='450' height='450' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' rx='50' fill='black'/%3E%3C/svg%3E") 49% fill / 16px;
-    mask-border: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='450' height='450' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' rx='50' fill='black'/%3E%3C/svg%3E") 49% fill / 16px;
-  }
-}
-@utility corner-squircle {
-  -webkit-mask-box-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' rx='50' fill='black'/%3E%3C/svg%3E") 49% fill / 24px;
-  mask-border: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' rx='50' fill='black'/%3E%3C/svg%3E") 49% fill / 24px;
-  @media (min-resolution: 2x) {
-    -webkit-mask-box-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' rx='50' fill='black'/%3E%3C/svg%3E") 49% fill / 24px;
-    mask-border: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' rx='50' fill='black'/%3E%3C/svg%3E") 49% fill / 24px;
-  }
-  @media (min-resolution: 3x) {
-    -webkit-mask-box-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' rx='50' fill='black'/%3E%3C/svg%3E") 49% fill / 24px;
-    mask-border: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' rx='50' fill='black'/%3E%3C/svg%3E") 49% fill / 24px;
-  }
-}
-@utility corner-squircle-lg {
-  -webkit-mask-box-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' rx='50' fill='black'/%3E%3C/svg%3E") 49% fill / 32px;
-  mask-border: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' rx='50' fill='black'/%3E%3C/svg%3E") 49% fill / 32px;
-  @media (min-resolution: 2x) {
-    -webkit-mask-box-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' rx='50' fill='black'/%3E%3C/svg%3E") 49% fill / 32px;
-    mask-border: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' rx='50' fill='black'/%3E%3C/svg%3E") 49% fill / 32px;
-  }
-  @media (min-resolution: 3x) {
-    -webkit-mask-box-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='450' height='450' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' rx='50' fill='black'/%3E%3C/svg%3E") 49% fill / 32px;
-    mask-border: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='450' height='450' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' rx='50' fill='black'/%3E%3C/svg%3E") 49% fill / 32px;
-  }
-}
-`
+
 
 const CSS_VARIABLES = `@layer base {
   :root {
@@ -99,7 +62,10 @@ const CSS_VARIABLES = `@layer base {
     --input: 220 13% 91%;
     --ring: 224 71.4% 4.1%;
     --radius: 0.5rem;
-    --radius-input: 0.5rem;
+    --duckit-radius: 24px;
+    --duckit-radius-step: 8px;
+    --duckit-radius-md: max(4px, calc(var(--duckit-radius) - var(--duckit-radius-step)));
+    --duckit-radius-sm: max(2px, calc(var(--duckit-radius-md) - var(--duckit-radius-step)));
   }
 
   .dark {
