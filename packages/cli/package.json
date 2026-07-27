@@ -1,6 +1,6 @@
 {
   "name": "@duckit/cli",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "CLI tool for adding Duckit components to your project",
   "type": "module",
   "bin": {
