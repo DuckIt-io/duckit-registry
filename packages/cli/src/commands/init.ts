@@ -38,8 +38,6 @@ export function cn(...inputs: ClassValue[]) {
 }
 `
 
-
-
 const CSS_VARIABLES = `@layer base {
   :root {
     --background: 0 0% 100%;
