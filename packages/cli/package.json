@@ -1,10 +1,10 @@
 {
   "name": "@duckit/cli",
-  "version": "0.0.8",
+  "version": "0.0.11",
   "description": "CLI tool for adding Duckit components to your project",
   "type": "module",
   "bin": {
-    "duckit": "./dist/index.js"
+    "duckit": "dist/index.js"
   },
   "main": "./dist/index.js",
   "scripts": {
@@ -29,7 +29,6 @@
     "directory": "packages/cli"
   },
   "dependencies": {
-    "@duckit/config": "*",
     "chalk": "^5.3.0",
     "commander": "^12.1.0",
     "ora": "^8.0.1",
@@ -38,7 +37,8 @@
   "devDependencies": {
     "@types/node": "^24.12.0",
     "tsx": "^4.19.3",
-    "typescript": "~5.9.3"
+    "typescript": "~5.9.3",
+    "@duckit/config": "*"
   },
   "publishConfig": {
     "access": "public"

@@ -57,6 +57,13 @@ npx @duckit/cli@latest add dialog input
 | `tooltip` | Tooltip on hover |
 | `aspect-ratio` | Maintain aspect ratio |
 
+## Design System
+
+Every Duckit component shares one signature style: a **generous radius scale**
+(`--duckit-radius: 24px`), **thick inset focus rings** (`ring-3 ring-inset`),
+and **compact sizing**. See [docs/design-system.md](docs/design-system.md) for
+the full spec — tokens, usage rules, and the contributor checklist.
+
 ## Framework Support
 
 Duckit CLI automatically detects your framework:
@@ -107,13 +114,12 @@ duckit-registry/
 │       └── ...
 │
 ├── scripts/
-│   ├── sync.sh              # Sync from DuckitIo
-│   ├── update-and-publish.sh
-│   └── update-registry.sh
+│   └── README.md              # Tooling notes
 │
 └── .github/
     └── workflows/
-        └── ci.yml
+        ├── ci.yml
+        └── release.yml
 ```
 
 ### Commands
@@ -139,17 +145,19 @@ npm run publish:registry
 npm run format
 ```
 
-### Sync Components
+### Workflow
+
+`src/components/ui/` is the **single source of truth** — no external sync. The docs
+site (duckit-nest) and the CLI both consume the published `@duckit/registry` npm
+package, so a publish is the only "sync" step:
 
 ```bash
-bash scripts/sync.sh
+npm run generate-registry   # 1. regenerate registry JSONs from src/
+npm run version:registry    # 2. bump patch version (creates git tag)
+npm run publish:registry    # 3. publish to npm
 ```
 
-To specify a custom source path:
-
-```bash
-SOURCE_DIR=/path/to/components bash scripts/sync.sh
-```
+After publishing, docs and CLI pick up the new components automatically.
 
 ## Registry Schema
 

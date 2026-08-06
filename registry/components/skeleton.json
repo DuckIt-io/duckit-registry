@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "skeleton.tsx",
-      "content": "import { cn } from '@/lib/utils'\n\nfunction Skeleton({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return (\n    <div\n      className={cn('animate-pulse rounded-xl corner-squircle-lg bg-primary/10', className)}\n      {...props}\n    />\n  )\n}\n\nexport { Skeleton }\n",
+      "content": "import { cn } from '@/lib/utils'\n\nfunction Skeleton({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return (\n    <div\n      className={cn('animate-pulse rounded-[var(--duckit-radius-md)] bg-primary/10', className)}\n      {...props}\n    />\n  )\n}\n\nexport { Skeleton }\n",
       "type": "component"
     }
   ]

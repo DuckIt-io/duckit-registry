@@ -1,4 +1,4 @@
-import { Framework } from '@duckit/config'
+import type { Framework } from '@duckit/config'
 
 export function detectFramework(pkg: Record<string, unknown>): Framework {
   const deps = {
