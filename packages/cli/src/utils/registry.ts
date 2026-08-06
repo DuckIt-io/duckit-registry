@@ -2,8 +2,7 @@ import { promises as fs } from 'node:fs'
 import path from 'node:path'
 import { RegistryItem } from '@duckit/config'
 
-const REGISTRY_URL = process.env.DUCKIT_REGISTRY_URL || 'https://www.duckit.web.id/r'
-const REGISTRY_NPM_URL = 'https://unpkg.com/@duckit/registry@latest/components'
+const REGISTRY_URL = process.env.DUCKIT_REGISTRY_URL || 'https://unpkg.com/@duckit/registry@latest/components'
 const REGISTRY_JSDELIVR_URL = 'https://cdn.jsdelivr.net/npm/@duckit/registry@latest/components'
 const REGISTRY_LOCAL_PATH = process.env.DUCKIT_REGISTRY_LOCAL_PATH
 
@@ -17,8 +16,7 @@ export async function fetchComponent(name: string): Promise<RegistryItem> {
   }
 
   const sources = [
-    { url: `${REGISTRY_URL}/${name}.json`, label: 'Domain' },
-    { url: `${REGISTRY_NPM_URL}/${name}.json`, label: 'unpkg' },
+    { url: `${REGISTRY_URL}/${name}.json`, label: 'unpkg' },
     { url: `${REGISTRY_JSDELIVR_URL}/${name}.json`, label: 'jsdelivr' },
   ]
 

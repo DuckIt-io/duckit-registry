@@ -36,10 +36,7 @@ DuckitIo-Registry/
 │   └── ...
 │
 ├── scripts/
-│   ├── sync.sh                # Sync .tsx from DuckitIo project
-│   ├── sync-to-website.ps1    # Copy registry JSONs → duckit-nest/public/r/
-│   ├── update-and-publish.sh  # Full workflow: sync → generate → print instructions
-│   └── update-registry.sh     # Generate → bump → publish (auto)
+│   └── README.md              # Tooling notes
 │
 └── .github/workflows/
     ├── ci.yml                 # Quality checks (PR + push to main)
@@ -60,7 +57,7 @@ Three packages with clear responsibilities:
 
 The flow:
 ```
-src/components/ui/*.tsx
+src/components/ui/*.tsx     ← single source of truth (no external sync)
        │
        ▼
 generate-registry.ts
@@ -68,17 +65,21 @@ generate-registry.ts
        ▼
 registry/index.json         registry/components/*.json    registry/registry.json
        │                           │                            │
-       ▼                           ▼                            ▼
-duckit.web.id/r/index.json   duckit.web.id/r/button.json   npm (backward compat)
-       │                           │
-       └─────── CLI fetch ─────────┘
-                          │
-                          ▼
+       └────────── npm publish (@duckit/registry) ─────────────┘
+                                    │
+            ┌───────────────────────┼───────────────────┐
+            ▼                       ▼                   ▼
+        docs site (duckit-nest)    CLI (unpkg)         CLI (jsdelivr)
+        fetches @duckit/registry@latest (build-time / client fetch)
+
               npx duckit add button
-              → fetch component JSON
+              → fetch component JSON from unpkg/jsdelivr
               → install dependencies
               → write .tsx to user project
 ```
+
+No sync scripts exist. Publish to npm is the only distribution step — docs and
+CLI consume the published package directly, so they can never drift.
 
 ---
 
@@ -137,15 +138,13 @@ The npm package serves as **CDN fallback** for the CLI:
 File: `packages/cli/src/utils/registry.ts`
 
 ```ts
-const REGISTRY_URL = 'https://www.duckit.web.id/r'
-const REGISTRY_NPM_URL = 'https://unpkg.com/@duckit/registry@latest/components'
+const REGISTRY_URL = 'https://unpkg.com/@duckit/registry@latest/components'
 const REGISTRY_JSDELIVR_URL = 'https://cdn.jsdelivr.net/npm/@duckit/registry@latest/components'
 ```
 
 Fetch order (tries each in sequence):
-1. `https://www.duckit.web.id/r/{name}.json` — primary source (Vercel)
-2. `https://unpkg.com/@duckit/registry@latest/components/{name}.json` — npm fallback
-3. `https://cdn.jsdelivr.net/npm/@duckit/registry@latest/components/{name}.json` — CDN fallback
+1. `https://unpkg.com/@duckit/registry@latest/components/{name}.json` — primary source
+2. `https://cdn.jsdelivr.net/npm/@duckit/registry@latest/components/{name}.json` — CDN fallback
 
 If `DUCKIT_REGISTRY_LOCAL_PATH` env var is set, uses local file directly (for development).
 
@@ -240,28 +239,7 @@ Ini mengupdate:
 - `registry/index.json`
 - `registry/components/{name}.json`
 
-### 3. Sync ke website
-
-```bash
-powershell scripts/sync-to-website.ps1
-```
-
-Copy file ke `duckit-nest/public/r/`:
-- `index.json` → metadata catalog
-- `*.json` → per-component files (flat, no subfolder)
-
-### 4. Commit + push website
-
-```bash
-cd ../duckit-nest
-git add public/r/
-git commit -m "sync registry"
-git push origin main
-```
-
-Vercel auto-deploy → `duckit.web.id/r/{name}.json` live.
-
-### 5. Publish ke npm
+### 3. Publish ke npm
 
 ```bash
 npm run version:registry   # bump patch
@@ -273,7 +251,9 @@ Atau push tag untuk trigger CI release:
 git push origin main --tags
 ```
 
-### 6. Commit registry repo
+Docs site (duckit-nest) dan CLI otomatis mengonsumsi versi baru — tidak ada langkah sync.
+
+### 4. Commit registry repo
 
 ```bash
 git add registry/
@@ -318,9 +298,9 @@ Edit `registry/registry.json` — cari entry komponen baru, isi `dependencies` s
 
 Tambah baris ke tabel "Available Components" di `README.md`.
 
-### 5. Sync + publish
+### 5. Publish
 
-Ikuti langkah 3-6 dari [Cara Update Komponen](#cara-update-komponen).
+Ikuti langkah 3-4 dari [Cara Update Komponen](#cara-update-komponen).
 
 ---
 
@@ -366,31 +346,22 @@ Mengikuti output dari `npm version patch`:
 
 ---
 
-## Sync ke Website
+## Distribusi ke Website
 
 ### Mekanisme
 
-`scripts/sync-to-website.ps1`:
+Tidak ada sync script. Docs site (duckit-nest) fetch langsung dari npm:
 
 ```
-registry/                          duckit-nest/public/r/
-├── index.json              →      ├── index.json
-└── components/                    ├── button.json
-    ├── button.json          →     ├── dialog.json
-    ├── dialog.json          →     └── ...
-    └── ...                        (flattened — no subfolder)
+npm publish @duckit/registry
+       │
+       ▼
+https://unpkg.com/@duckit/registry@latest/index.json          → docs index (metadata)
+https://unpkg.com/@duckit/registry@latest/components/{name}.json → halaman komponen (full source)
+https://cdn.jsdelivr.net/npm/@duckit/registry@latest/...      → fallback CDN
 ```
 
-CLI fetch dari `duckit.web.id/r/button.json` (flat), bukan `duckit.web.id/r/components/button.json`.
-
-### Parameter
-
-Script menerima `-WebsiteDir` parameter untuk mengarahkan ke lokasi project website:
-```powershell
-powershell scripts/sync-to-website.ps1 -WebsiteDir "D:\path\to\duckit-nest"
-```
-
-Default: `../duckit-nest` (relative ke root registry repo).
+`public/r/` tidak lagi ada di duckit-nest — stale files mustahil terjadi.
 
 ---
 
@@ -398,10 +369,9 @@ Default: `../duckit-nest` (relative ke root registry repo).
 
 | Variable | Used In | Purpose |
 |----------|---------|---------|
-| `DUCKIT_REGISTRY_URL` | CLI `registry.ts` | Override registry domain URL |
+| `DUCKIT_REGISTRY_URL` | CLI `registry.ts` | Override registry URL (default: unpkg components dir) |
 | `DUCKIT_REGISTRY_LOCAL_PATH` | CLI `registry.ts` | Use local JSON instead of fetch (development) |
 | `PROJECT_ROOT` | `generate-registry.ts` | Override project root path |
-| `SOURCE_DIR` | `scripts/sync.sh` | Custom source path for syncing .tsx files |
 
 ---
 
