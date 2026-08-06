@@ -1,6 +1,6 @@
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
-import { RegistryItem } from '@duckit/config'
+import type { RegistryItem } from '@duckit/config'
 
 const REGISTRY_URL = process.env.DUCKIT_REGISTRY_URL || 'https://unpkg.com/@duckit/registry@latest/components'
 const REGISTRY_JSDELIVR_URL = 'https://cdn.jsdelivr.net/npm/@duckit/registry@latest/components'

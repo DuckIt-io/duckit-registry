@@ -188,9 +188,9 @@ export async function initCommand() {
 
     spinner.succeed(chalk.green(`Duckit initialized for ${getFrameworkLabel(framework)}!`))
     console.log(chalk.blue('\nYou can now add components:'))
-    console.log(chalk.cyan('  npx @duckit/duckit@latest add button'))
-    console.log(chalk.cyan('  npx @duckit/duckit@latest add dialog'))
-    console.log(chalk.cyan('  npx @duckit/duckit@latest add input'))
+    console.log(chalk.cyan('  npx @duckit/cli@latest add button'))
+    console.log(chalk.cyan('  npx @duckit/cli@latest add dialog'))
+    console.log(chalk.cyan('  npx @duckit/cli@latest add input'))
   } catch (error) {
     spinner.fail()
     console.error(chalk.red('Error:'), error instanceof Error ? error.message : error)
