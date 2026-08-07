@@ -20,7 +20,9 @@
     "publish:registry": "npm -w @duckit/registry publish --access public",
     "version:registry": "npm -w @duckit/registry version patch",
     "publish:cli": "npm -w @duckit/cli publish --access public",
-    "version:cli": "npm -w @duckit/cli version patch"
+    "version:cli": "npm -w @duckit/cli version patch",
+    "version:duckit": "npm -w duckit version patch",
+    "publish:duckit": "npm -w duckit publish --access public"
   },
   "devDependencies": {
     "@types/node": "^24.12.0",

@@ -17,8 +17,8 @@ DuckitIo-Registry/
 │   │   ├── src/
 │   │   │   ├── index.ts       # Entry point (commander)
 │   │   │   ├── commands/
-│   │   │   │   ├── add.ts     # npx duckit add <component>
-│   │   │   │   └── init.ts    # npx duckit init
+│   │   │   │   ├── add.ts     # npx @duckit/cli add <component>
+│   │   │   │   └── init.ts    # npx @duckit/cli init
 │   │   │   └── utils/
 │   │   │       ├── registry.ts    # fetchComponent() logic
 │   │   │       ├── framework.ts   # framework detection
@@ -27,6 +27,9 @@ DuckitIo-Registry/
 │   │   │   └── generate-registry.ts  # Generate all registry JSONs
 │   │   └── package.json
 │   │
+│   ├── duckit/               # duckit — alias package for @duckit/cli
+│   │   ├── index.js            # bin: imports @duckit/cli entry
+│   │   └── package.json
 │   └── config/                # @duckit/config — shared types (private)
 │       └── src/index.ts
 │
@@ -53,6 +56,7 @@ Three packages with clear responsibilities:
 |---------|----------|-----------|---------|
 | `@duckit/registry` | `registry/` | ✅ npm | Registry metadata + component source code as JSON |
 | `@duckit/cli` | `packages/cli/` | ✅ npm | CLI for `init` and `add` commands |
+| `duckit` | `packages/duckit/` | ✅ npm | Unscoped alias so `npx duckit ...` works (must track `@duckit/cli` version) |
 | `@duckit/config` | `packages/config/` | ❌ private (workspace) | Shared TypeScript types |
 
 The flow:
@@ -72,7 +76,7 @@ registry/index.json         registry/components/*.json    registry/registry.json
         docs site (duckit-nest)    CLI (unpkg)         CLI (jsdelivr)
         fetches @duckit/registry@latest (build-time / client fetch)
 
-              npx duckit add button
+              npx @duckit/cli add button
               → fetch component JSON from unpkg/jsdelivr
               → install dependencies
               → write .tsx to user project
@@ -153,7 +157,7 @@ If `DUCKIT_REGISTRY_LOCAL_PATH` env var is set, uses local file directly (for de
 File: `packages/cli/src/commands/add.ts`
 
 ```
-npx duckit add button
+npx @duckit/cli add button
        │
        ▼
 1. Resolve project root (find package.json)
@@ -171,7 +175,7 @@ npx duckit add button
 File: `packages/cli/src/commands/init.ts`
 
 ```
-npx duckit init
+npx @duckit/cli init
        │
        ▼
 1. Detect framework (Next.js, Vite, Remix, CRA, Astro)
@@ -211,7 +215,8 @@ jobs:
     3. Build CLI (tsc)
     4. Publish @duckit/registry — compares local version vs npm, skip if same
     5. Publish @duckit/cli — compares local version vs npm, skip if same
-    6. Create GitHub Release — auto-generated release notes from commits
+    6. Publish duckit alias — compares local version vs npm, skip if same
+    7. Create GitHub Release — auto-generated release notes from commits
 ```
 
 **Required secrets:**
@@ -389,4 +394,6 @@ npm run version:registry    # npm version patch for @duckit/registry
 npm run publish:registry    # npm publish for @duckit/registry
 npm run version:cli         # npm version patch for @duckit/cli
 npm run publish:cli         # npm publish for @duckit/cli
+npm run version:duckit      # npm version patch for duckit alias (keep in sync with cli)
+npm run publish:duckit      # npm publish for duckit alias
 ```
