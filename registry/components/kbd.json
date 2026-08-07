@@ -1,0 +1,12 @@
+{
+  "name": "kbd",
+  "dependencies": [],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "kbd.tsx",
+      "content": "import { cn } from '@/lib/utils'\n\nfunction Kbd({ className, ...props }: React.ComponentProps<'kbd'>) {\n  return (\n    <kbd\n      className={cn(\n        'pointer-events-none inline-flex h-5 items-center gap-1 rounded-[var(--duckit-radius-sm)] border border-border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground',\n        className,\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Kbd }\n",
+      "type": "component"
+    }
+  ]
+}

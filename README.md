@@ -56,13 +56,18 @@ npx @duckit/cli@latest add dialog input
 | `textarea` | Multi-line text input |
 | `tooltip` | Tooltip on hover |
 | `aspect-ratio` | Maintain aspect ratio |
+| `kbd` | Keyboard key hint (⌘K etc.) |
 
 ## Design System
 
-Every Duckit component shares one signature style: a **generous radius scale**
-(`--duckit-radius: 24px`), **thick inset focus rings** (`ring-3 ring-inset`),
-and **compact sizing**. See [docs/design-system.md](docs/design-system.md) for
-the full spec — tokens, usage rules, and the contributor checklist.
+Every Duckit component shares one signature style: a **uniform 16px squircle
+radius** (`rounded-[var(--duckit-radius-md)]` + `[corner-shape:squircle]`),
+**visible borders on every surface**, **thick inset focus rings**
+(`ring-3 ring-inset`), **compact sizing** — and a **shadow system** where
+plain `shadow` / `shadow-lg` are redefined with `drop-shadow()` so shadows
+follow the squircle shape automatically. See
+[docs/design-system.md](docs/design-system.md) for the full spec — tokens,
+usage rules, and the contributor checklist.
 
 ## Framework Support
 
