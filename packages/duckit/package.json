@@ -4,7 +4,7 @@
   "description": "Duckit CLI alias — makes `npx duckit` resolve to @duckit/cli",
   "type": "module",
   "bin": {
-    "duckit": "./index.js"
+    "duckit": "index.js"
   },
   "files": [
     "index.js"
