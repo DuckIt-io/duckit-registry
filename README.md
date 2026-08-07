@@ -37,6 +37,9 @@ npx @duckit/cli@latest add dialog input
 | Component | Description |
 |-----------|-------------|
 | `button` | Button with multiple variants |
+| `select` | Native-feel select dropdown |
+| `popover` | Floating content on demand |
+| `color-picker` | Color picker with selection, hue, alpha and format output |
 | `alert-dialog` | Alert and confirmation dialog |
 | `alert` | Alert banner for notifications |
 | `badge` | Badge/label component |
