@@ -57,17 +57,6 @@ jobs:
             echo "⏭️ @duckit/cli@$CURRENT already published"
           fi
 
-      - name: Publish duckit alias
-        run: |
-          CURRENT=$(node -p "require('./packages/duckit/package.json').version")
-          LATEST=$(npm view duckit version 2>/dev/null || echo "none")
-          if [ "$CURRENT" != "$LATEST" ]; then
-            cd packages/duckit && npm publish --access public
-            echo "✅ duckit@$CURRENT published"
-          else
-            echo "⏭️ duckit@$CURRENT already published"
-          fi
-
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:

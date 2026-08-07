@@ -27,9 +27,6 @@ DuckitIo-Registry/
 │   │   │   └── generate-registry.ts  # Generate all registry JSONs
 │   │   └── package.json
 │   │
-│   ├── duckit/               # duckit — alias package for @duckit/cli
-│   │   ├── index.js            # bin: imports @duckit/cli entry
-│   │   └── package.json
 │   └── config/                # @duckit/config — shared types (private)
 │       └── src/index.ts
 │
@@ -56,7 +53,6 @@ Three packages with clear responsibilities:
 |---------|----------|-----------|---------|
 | `@duckit/registry` | `registry/` | ✅ npm | Registry metadata + component source code as JSON |
 | `@duckit/cli` | `packages/cli/` | ✅ npm | CLI for `init` and `add` commands |
-| `duckit` | `packages/duckit/` | ✅ npm | Unscoped alias so `npx duckit ...` works (must track `@duckit/cli` version) |
 | `@duckit/config` | `packages/config/` | ❌ private (workspace) | Shared TypeScript types |
 
 The flow:
@@ -215,8 +211,7 @@ jobs:
     3. Build CLI (tsc)
     4. Publish @duckit/registry — compares local version vs npm, skip if same
     5. Publish @duckit/cli — compares local version vs npm, skip if same
-    6. Publish duckit alias — compares local version vs npm, skip if same
-    7. Create GitHub Release — auto-generated release notes from commits
+    6. Create GitHub Release — auto-generated release notes from commits
 ```
 
 **Required secrets:**
@@ -394,6 +389,4 @@ npm run version:registry    # npm version patch for @duckit/registry
 npm run publish:registry    # npm publish for @duckit/registry
 npm run version:cli         # npm version patch for @duckit/cli
 npm run publish:cli         # npm publish for @duckit/cli
-npm run version:duckit      # npm version patch for duckit alias (keep in sync with cli)
-npm run publish:duckit      # npm publish for duckit alias
 ```
