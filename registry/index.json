@@ -232,6 +232,42 @@
         "dependencies": [],
         "devDependencies": [],
         "files": []
+      },
+      "popover": {
+        "name": "popover",
+        "dependencies": [
+          "@radix-ui/react-popover",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "devDependencies": [],
+        "files": []
+      },
+      "color-picker": {
+        "name": "color-picker",
+        "dependencies": [
+          "color",
+          "radix-ui",
+          "lucide-react",
+          "@radix-ui/react-select",
+          "class-variance-authority",
+          "@radix-ui/react-slot",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "devDependencies": [],
+        "files": []
+      },
+      "select": {
+        "name": "select",
+        "dependencies": [
+          "@radix-ui/react-select",
+          "lucide-react",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "devDependencies": [],
+        "files": []
       }
     }
   }
