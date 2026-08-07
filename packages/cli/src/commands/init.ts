@@ -97,6 +97,47 @@ const CSS_VARIABLES = `@layer base {
     @apply bg-background text-foreground;
   }
 }
+
+/*
+ * Duckit shadow system.
+ *
+ * Tailwind's shadow-* utilities produce box-shadow, which renders as a
+ * rectangle and does NOT follow corner-shape (squircle) corners. We override
+ * them with filter: drop-shadow() so shadows trace the actual rendered shape,
+ * while keeping the familiar shadow / shadow-sm / shadow-lg API.
+ *
+ * shadow-none, shadow-inner, and arbitrary shadow-[...] keep their default
+ * box-shadow behavior.
+ */
+.shadow-sm {
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.05));
+  box-shadow: none;
+}
+
+.shadow {
+  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.05));
+  box-shadow: none;
+}
+
+.shadow-md {
+  filter: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+  box-shadow: none;
+}
+
+.shadow-lg {
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  box-shadow: none;
+}
+
+.shadow-xl {
+  filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
+  box-shadow: none;
+}
+
+.shadow-2xl {
+  filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
+  box-shadow: none;
+}
 `
 
 export async function initCommand() {

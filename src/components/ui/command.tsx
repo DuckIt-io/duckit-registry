@@ -19,7 +19,7 @@ function Command({ className, ...props }: React.ComponentProps<typeof CommandPri
     <CommandPrimitive
       data-slot="command"
       className={cn(
-        'bg-popover text-popover-foreground rounded-[var(--duckit-radius)] p-1 flex size-full flex-col overflow-hidden',
+        'bg-popover text-popover-foreground rounded-[var(--duckit-radius-md)] [corner-shape:squircle] border border-border p-1 flex size-full flex-col overflow-hidden',
         className,
       )}
       {...props}
@@ -47,7 +47,7 @@ function CommandDialog({
       </DialogHeader>
       <DialogContent
         className={cn(
-          'rounded-[var(--duckit-radius)] top-1/3 translate-y-0 overflow-hidden p-0',
+          'rounded-[var(--duckit-radius-md)] [corner-shape:squircle] top-1/3 translate-y-0 overflow-hidden p-0',
           className,
         )}
       >
@@ -144,7 +144,7 @@ function CommandItem({
     <CommandPrimitive.Item
       data-slot="command-item"
       className={cn(
-        "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-[var(--duckit-radius-sm)] px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-[var(--duckit-radius)]! [&_svg:not([class*='size-'])]:size-4 group/command-item data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative my-0.5 flex cursor-default items-center gap-2 rounded-[var(--duckit-radius-md)] [corner-shape:squircle] px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-[var(--duckit-radius-md)]! [&_svg:not([class*='size-'])]:size-4 group/command-item data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         className,
       )}
       {...props}

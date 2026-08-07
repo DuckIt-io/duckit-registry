@@ -226,6 +226,12 @@
         ],
         "devDependencies": [],
         "files": []
+      },
+      "kbd": {
+        "name": "kbd",
+        "dependencies": [],
+        "devDependencies": [],
+        "files": []
       }
     }
   }
