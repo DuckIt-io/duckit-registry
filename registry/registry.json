@@ -412,6 +412,52 @@
             "type": "component"
           }
         ]
+      },
+      "card": {
+        "name": "card",
+        "dependencies": [
+          "clsx",
+          "tailwind-merge"
+        ],
+        "devDependencies": [],
+        "files": [
+          {
+            "path": "card.tsx",
+            "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nconst Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(\n  ({ className, ...props }, ref) => (\n    <div\n      ref={ref}\n      className={cn(\n        \"rounded-[var(--duckit-radius-md)] [corner-shape:squircle] border border-border bg-card text-card-foreground shadow-sm\",\n        className,\n      )}\n      {...props}\n    />\n  ),\n);\nCard.displayName = \"Card\";\n\nconst CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(\n  ({ className, ...props }, ref) => (\n    <div ref={ref} className={cn(\"flex flex-col space-y-1.5 p-6\", className)} {...props} />\n  ),\n);\nCardHeader.displayName = \"CardHeader\";\n\nconst CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(\n  ({ className, ...props }, ref) => (\n    <h3\n      ref={ref}\n      className={cn(\"text-2xl font-semibold leading-none tracking-tight\", className)}\n      {...props}\n    />\n  ),\n);\nCardTitle.displayName = \"CardTitle\";\n\nconst CardDescription = React.forwardRef<\n  HTMLParagraphElement,\n  React.HTMLAttributes<HTMLParagraphElement>\n>(({ className, ...props }, ref) => (\n  <p ref={ref} className={cn(\"text-sm text-muted-foreground\", className)} {...props} />\n));\nCardDescription.displayName = \"CardDescription\";\n\nconst CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(\n  ({ className, ...props }, ref) => (\n    <div ref={ref} className={cn(\"p-6 pt-0\", className)} {...props} />\n  ),\n);\nCardContent.displayName = \"CardContent\";\n\nconst CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(\n  ({ className, ...props }, ref) => (\n    <div ref={ref} className={cn(\"flex items-center p-6 pt-0\", className)} {...props} />\n  ),\n);\nCardFooter.displayName = \"CardFooter\";\n\nexport { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };\n",
+            "type": "component"
+          }
+        ]
+      },
+      "label": {
+        "name": "label",
+        "dependencies": [
+          "@radix-ui/react-slot",
+          "class-variance-authority",
+          "clsx",
+          "tailwind-merge"
+        ],
+        "devDependencies": [],
+        "files": [
+          {
+            "path": "label.tsx",
+            "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { Slot } from \"@radix-ui/react-slot\";\nimport { cva, type VariantProps } from \"class-variance-authority\";\nimport { cn } from \"@/lib/utils\";\n\nconst labelVariants = cva(\n  \"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\",\n);\n\nconst Label = React.forwardRef<\n  HTMLLabelElement,\n  React.LabelHTMLAttributes<HTMLLabelElement> & {\n    asChild?: boolean;\n  }\n>(({ className, asChild = false, ...props }, ref) => {\n  const Comp = asChild ? Slot : \"label\";\n  return <Comp ref={ref} className={cn(labelVariants(), className)} {...props} />;\n});\nLabel.displayName = \"Label\";\n\nexport { Label, labelVariants };\n",
+            "type": "component"
+          }
+        ]
+      },
+      "sonner": {
+        "name": "sonner",
+        "dependencies": [
+          "sonner"
+        ],
+        "devDependencies": [],
+        "files": [
+          {
+            "path": "sonner.tsx",
+            "content": "\"use client\";\n\nimport { Toaster as SonnerToaster } from \"sonner\";\n\nexport function Toaster() {\n  return (\n    <SonnerToaster\n      theme=\"system\"\n      className=\"toaster group\"\n      toastOptions={{\n        classNames: {\n          toast:\n            \"group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:rounded-[var(--duckit-radius-md)] group-[.toaster]:[corner-shape:squircle]\",\n          description: \"group-[.toast]:text-muted-foreground\",\n          actionButton: \"group-[.toast]:bg-primary group-[.toast]:text-primary-foreground\",\n          cancelButton: \"group-[.toast]:bg-muted group-[.toast]:text-muted-foreground\",\n        },\n      }}\n    />\n  );\n}\n",
+            "type": "component"
+          }
+        ]
       }
     }
   }

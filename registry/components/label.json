@@ -1,0 +1,17 @@
+{
+  "name": "label",
+  "dependencies": [
+    "@radix-ui/react-slot",
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "label.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { Slot } from \"@radix-ui/react-slot\";\nimport { cva, type VariantProps } from \"class-variance-authority\";\nimport { cn } from \"@/lib/utils\";\n\nconst labelVariants = cva(\n  \"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\",\n);\n\nconst Label = React.forwardRef<\n  HTMLLabelElement,\n  React.LabelHTMLAttributes<HTMLLabelElement> & {\n    asChild?: boolean;\n  }\n>(({ className, asChild = false, ...props }, ref) => {\n  const Comp = asChild ? Slot : \"label\";\n  return <Comp ref={ref} className={cn(labelVariants(), className)} {...props} />;\n});\nLabel.displayName = \"Label\";\n\nexport { Label, labelVariants };\n",
+      "type": "component"
+    }
+  ]
+}
